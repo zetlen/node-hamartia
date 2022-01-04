@@ -1,9 +1,12 @@
 {
   "name": "rollup-starter-lib",
   "version": "1.0.0",
-  "type": "module",
-  "main": "dist/how-long-till-lunch.cjs.js",
-  "module": "dist/how-long-till-lunch.esm.js",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "files": [
+    "esm",
+    "cjs"
+  ],
   "dependencies": {
     "ms": "^2.0.0"
   },
@@ -16,6 +19,7 @@
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
     "jest": "^27.4.5",
+    "prettier": "2.5.1",
     "rollup": "^2.62.0",
     "ts-jest": "^27.1.2",
     "ts-node": "^10.4.0",
@@ -24,12 +28,42 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "prebuild": "npm run lint",
+    "format": "npm run -s format:prettier -- .",
+    "format:prettier": "prettier --loglevel warn --ignore-path .gitignore --ignore-unknown --write",
+    "lint": "npm run -s lint:fix -- .",
+    "lint:fix": "eslint --ignore-path .gitignore --fix",
+    "prelint": "npm run format",
     "test": "jest --coverage",
-    "test:watch": "jest --watch",
-    "pretest": "npm run build"
+    "pretest": "npm run -s build",
+    "dev": "rollup -c -w",
+    "test:watch": "jest --watch"
   },
-  "files": [
-    "dist"
-  ]
+  "prettier": {},
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "@typescript-eslint/member-delimiter-style": "ERROR"
+    }
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  }
 }
