@@ -1,8 +1,10 @@
 {
-  "name": "rollup-starter-lib",
+  "name": "@zetlen/create-lib-ts",
   "version": "1.0.0",
-  "main": "cjs/index.js",
-  "module": "esm/index.js",
+  "license": "GPLv2",
+  "description": "no description provided",
+  "main": "cjs/zetlen-create-lib-ts.js",
+  "module": "esm/zetlen-create-lib-ts.js",
   "files": [
     "esm",
     "cjs"
@@ -42,7 +44,7 @@
   "prettier": {},
   "eslintConfig": {
     "env": {
-      "browser": true,
+      "node": true,
       "es2021": true
     },
     "extends": [
@@ -59,7 +61,6 @@
       "@typescript-eslint"
     ],
     "rules": {
-      "@typescript-eslint/member-delimiter-style": "ERROR"
     }
   },
   "jest": {
